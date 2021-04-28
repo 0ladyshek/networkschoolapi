@@ -37,11 +37,10 @@ class NetworkSchool:
 
     async def get_total(self):
         today = date.today()
-
-        async with self,_client as client:
-            total = await client.get(
-                "/rest/totals?",
-                params = {
+        async with self._client as client:
+            total = await client.post(
+                "/rest/totals",
+                data = {
                     "pupil_id": self._user_id,
                     'date': today.strftime("%d.%m.%Y")
                 }
@@ -59,7 +58,6 @@ class NetworkSchool:
             )
             sessionId_json = sessionId.json()
             if sessionId_json['success'] != True:
-                print(sessionId_json)
                 raise exceptions.NetworkSchool(sessionId_json['message'])
 
             self._user_id = sessionId_json['childs'][0][0]
