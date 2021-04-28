@@ -2,6 +2,7 @@ from httpx import AsyncClient
 from httpx import Cookies
 from networkschool import exceptions
 from datetime import date, timedelta
+import traceback
 
 class NetworkSchool:
     def __init__(
@@ -36,16 +37,20 @@ class NetworkSchool:
             return diary.json()
 
     async def get_total(self):
-        today = date.today()
-        async with self._client as client:
-            total = await client.post(
-                "/rest/totals",
-                data = {
-                    "pupil_id": self._user_id,
-                    'date': today.strftime("%d.%m.%Y")
-                }
-            )
-            return total.json()
+        try:
+            today = date.today()
+            async with self._client as client:
+                total = await client.post(
+                    "/rest/totals",
+                    data = {
+                        "pupil_id": self._user_id,
+                        'date': today.strftime("%d.%m.%Y")
+                    }
+                )
+                return total.json()
+        except Exception:
+            raise exceptions.NetworkSchool(traceback.format_exc())
+
 
     async def _login(self):
         async with self._client as client:
