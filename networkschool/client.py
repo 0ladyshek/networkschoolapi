@@ -35,6 +35,19 @@ class NetworkSchool:
             )
             return diary.json()
 
+    async def get_total(self):
+        today = date.today()
+
+        async with self,_client as client:
+            total = await client.get(
+                "/rest/total?",
+                params = {
+                    "pupil_id": self._user_id,
+                    'date': today.strftime("%d.%m.%Y")
+                }
+            )
+            return total.json()
+
     async def _login(self):
         async with self._client as client:
             sessionId = await client.get(
