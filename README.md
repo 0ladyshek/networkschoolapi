@@ -33,6 +33,11 @@ diary = await api.get_diary()
 total = await api.get_total()
 ```
 
+## Получение успеваемости
+```python
+progress = await api.get_progress()
+```
+
 # Авторы
 Нашел методы api: https://vk.com/mironovmeow
 
