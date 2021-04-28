@@ -45,6 +45,7 @@ class NetworkSchool:
                     'date': today.strftime("%d.%m.%Y")
                 }
             )
+            print(total)
             return total.json()
 
     async def _login(self):
