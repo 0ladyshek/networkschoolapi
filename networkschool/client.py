@@ -40,7 +40,7 @@ class NetworkSchool:
 
         async with self,_client as client:
             total = await client.get(
-                "/rest/total?",
+                "/rest/totals?",
                 params = {
                     "pupil_id": self._user_id,
                     'date': today.strftime("%d.%m.%Y")
