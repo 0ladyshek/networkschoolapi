@@ -28,6 +28,11 @@ diary = await api.get_diary()
 | to_date(необзательно) | Дата до которой нужно получить дневник(datetime) | День конца недели |
 
 
+## Получение итоговых оценок
+```python
+total = await api.get_total()
+```
+
 # Авторы
 Нашел методы api: https://vk.com/mironovmeow
 
