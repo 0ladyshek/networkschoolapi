@@ -37,20 +37,28 @@ class NetworkSchool:
             return diary.json()
 
     async def get_total(self):
-        try:
-            today = date.today()
-            async with self._client as client:
-                total = await client.post(
-                    "/rest/totals",
-                    data = {
-                        "pupil_id": self._user_id,
-                        'date': today.strftime("%d.%m.%Y")
-                    }
-                )
-                return total.json()
-        except Exception:
-            raise exceptions.NetworkSchool(traceback.format_exc())
+        today = date.today()
+        async with self._client as client:
+            total = await client.post(
+                "/rest/totals",
+                data = {
+                    "pupil_id": self._user_id,
+                    'date': today.strftime("%d.%m.%Y")
+                }
+            )
+            return total.json()
 
+    async def get_progress(self):
+        today = date.today()
+        async with self._client as client:
+            progress = await client.post(
+                "/rest/progress_average",
+                data = {
+                    "pupil_id": self._user_id,
+                    "date": today.strftime("%d.%m.%Y")
+                }
+            )
+            return progress.json()
 
     async def _login(self):
         async with self._client as client:
